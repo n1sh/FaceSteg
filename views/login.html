@@ -1,0 +1,30 @@
+<div class="appName"><span ng-click="goHome();">FaceSteg</span> >> <span>Login</span></div>
+<div class="outer">
+<table class="loginTable">
+<tr>
+<td valign="top">
+<div class="login">
+		<input type="text" placeholder="username" id="username"><br>
+		<input type="password" placeholder="password" id="password"><br>
+		<input type="button" ng-click="login()" value="Login">
+</div>
+</td>
+<td valign="top">
+<div class="webcam">
+				<webcam id="webcam" channel="channel" 
+							on-streaming="onSuccess()" 
+							on-error="onError(err)" 
+							on-stream="onStream(stream)">
+				</webcam>
+				</br>
+				<input class="btn" ng-click="makeSnapshot(); faceimgLoginInc();" type="button" value="Click"></input>
+</div>
+</td>
+<td valign="top">
+<div class="clicked">
+	<canvas id="faceimg" width="320" height="240"></canvas>
+</div>
+</td>
+</tr>
+</table>
+</div>

@@ -1,0 +1,260 @@
+
+#webcam {
+  border: 5px solid white;
+  display: inline-block;
+}
+
+.btn{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  margin: 15px 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#faceimg,#snapshot1,#snapshot2,#snapshot3,#snapshot4,#tempImage {
+  border: 5px solid white;
+  display: inline-block;
+}
+
+body {
+    background-image: url("/resources/steganography.jpg");
+    background-size: cover;
+}
+
+.body {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  right: -40px;
+  bottom: -40px;
+  width: auto;
+  height: auto;
+  background-size: cover;
+  -webkit-filter: blur(3px);
+  z-index: 0;
+}
+
+.homebtn{
+    height: 300px;
+    width: 300px;
+}
+
+placeholder {
+    color: red;
+    opacity: 1;
+}
+
+.grad {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  right: -40px;
+  bottom: -40px;
+  width: auto;
+  height: auto;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.65)));
+  /* Chrome,Safari4+ */
+  z-index: 1;
+  opacity: 0.7;
+}
+
+
+.appName {
+  position: absolute;
+  top: calc(4%);
+  left: calc(50% - 185px);
+  float: left;
+  color: #5379fa !important;
+  font-family: 'Exo', sans-serif;
+  font-size: 65px;
+  font-weight: 200;
+  span {
+    color: #fff !important;
+  }
+}
+
+.header {
+  position: absolute;
+  top: calc(50% - 65px);
+  left: calc(50% - 325px);
+  z-index: 2;
+  div {
+    float: left;
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+    font-size: 65px;
+    font-weight: 200;
+    span {
+      color: #5379fa !important;
+    }
+  }
+}
+
+.outer {
+  margin: 100px 50px 0px 50px;
+}
+
+loginTable td{
+  vertical-align: top;
+  margin: 0px 10px;
+  width: 200px;
+}
+
+.clicked{
+  margin: 0px 100px;
+  width: 350px;
+}
+
+.webcam{
+  margin: 0px 20px;
+  width: 320px;
+}
+
+.welcome{
+  margin-top: 100px;
+  z-index: 3;
+  width: 350px;
+  display: inline-block !important;
+  input {
+    &[type=text] {
+      width: 250px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 4px;
+    }
+    &[type=password] {
+      width: 250px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 4px;
+      margin-top: 10px;
+    }
+    &[type=button] {
+      width: 260px;
+      height: 135px;
+      margin: 0px 0px 0px 800px;
+      background: #fff;
+      border: 1px solid #fff;
+      cursor: pointer;
+      border-radius: 100px;
+      color: #a18d6c;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 6px;
+      margin-top: 10px;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.6;
+      }
+    }
+    &[type=text]:focus, &[type=password]:focus {
+      outline: none;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+    &[type=button]:focus {
+      outline: none;
+    }
+  }
+}
+
+.login {
+  input {
+    margin-bottom: 20px;
+    &[type=text] {
+      width: 250px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 4px;
+    }
+    &[type=date] {
+      width: 250px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 4px;
+    }
+    &[type=password] {
+      width: 250px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 4px;
+      margin-top: 10px;
+    }
+    &[type=button] {
+      left: calc(50%);
+      width: 160px;
+      height: 65px;
+      background: #fff;
+      border: 1px solid #fff;
+      cursor: pointer;
+      border-radius: 100px;
+      color: #a18d6c;
+      font-family: 'Exo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 6px;
+      margin-top: 10px;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.6;
+      }
+    }
+    &[type=text]:focus, &[type=password]:focus {
+      outline: none;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+    &[type=button]:focus {
+      outline: none;
+    }
+  }
+}
+
+.login2{
+  @extend .login;
+  width: 750px;
+  display: inline-block !important;
+  background: linear-gradient(to right, rgba(211,211,211,0), #dac887);
+  padding: 30px;
+  border-radius: 30px;
+}
+
+::-webkit-input-placeholder, ::-moz-input-placeholder {
+  color: rgba(255, 255, 255, 1.0);
+}

@@ -1,0 +1,17 @@
+<div class="appName"><span ng-click="goHome();">FaceSteg</span> >> <span>SignUp</span></div>
+<div class="outer">
+<table class="loginTable">
+<tr>
+<td valign="top">
+<div class="login2">
+		<input type="text" ng-keypress="validateTextOnly()" placeholder="Name" ng-model="name"><br>
+		<input type="date" ng-model="dob"><br>
+		<input type="text" ng-keypress="validateUserName()" placeholder="username" ng-model="user">
+		<button ng-click="checkUsername()" style="margin-left: 50px;width:200px; height:30px;">Check username availability</button>
+		<image ng-show="availability && show" style="margin-left: 130px; border-radius: 50%;" src="resources/right.png"></image>
+		<image ng-show="!availability && show" style="margin-left: 130px;border-radius: 50%;" src="resources/wrong.png"></image>
+		<br>
+		<input type="password" ng-keypress="validatePassword()" placeholder="password" ng-model="pass"><br>
+		<input type="button" ng-click="goToSignUp2()" value="NEXT">
+</div>
+</td>

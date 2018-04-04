@@ -1,0 +1,28 @@
+{
+  "name": "FaceSteg",
+  "version": "1.0.0",
+  "description": "A web application which allows to login using improved remote authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alphaBlur/FaceSteg"
+  },
+  "author": "Nishant",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/VisheshSood/FaceSteg/issues"
+  },
+  "homepage": "https://github.com/alphaBlur/FaceSteg",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
+  }
+}
