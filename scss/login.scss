@@ -65,7 +65,7 @@ placeholder {
 .appName {
   position: absolute;
   top: calc(4%);
-  left: calc(50% - 185px);
+  left: calc(50% - 305px);
   float: left;
   color: #5379fa !important;
   font-family: 'Exo', sans-serif;
@@ -104,8 +104,17 @@ loginTable td{
 }
 
 .clicked{
-  margin: 0px 100px;
+  margin: 0px 100px 0px 100px;
   width: 350px;
+}
+
+.clickLogo{
+  position:absolute;
+  left: 380px;
+  top: 294px;
+  opacity: 0.3;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .webcam{

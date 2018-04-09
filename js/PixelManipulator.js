@@ -17,16 +17,11 @@ function Manipulator(buffer, width, height){
         // this.buf32[0] = temp;
     // };
     // this.getEndianness();
-	
+    
     // // All encoding of the image goes in here
     // // see http://jsperf.com/canvas-pixel-manipulation for speed test
     this.encode = function(text){
-		
-		// var strr = "";
-		// for(var i=0; i<50; ++i)
-			// strr+= this.buf32[i].toString(2)+', ';
-		// console.log(strr);
-		
+
         var index = 0;
         var binary = "";
         for(index; index < text.length; index++){
@@ -41,7 +36,7 @@ function Manipulator(buffer, width, height){
         }
         // actually encode the string
         index = 0;
-        var pixelIndex = 0;
+        var pixelIndex = 1;
         for(index; index < binary.length; index+=3) {
             var bits = [];
             // 48 is the char code for 0, 49 for 1
@@ -50,18 +45,11 @@ function Manipulator(buffer, width, height){
             bits.push(binary.charCodeAt(index + 1) === 48 ? 0 : 1);
             bits.push(binary.charCodeAt(index + 2) === 48 ? 0 : 1);
 
-            this.setLsb(pixelIndex, bits);
-            pixelIndex+=4;
+            pixelIndex = this.setLsb(pixelIndex, bits);
         }
         // set the LSB of all remaining pixels to 0, causing them to output
         // nothing when decoding
-        for(pixelIndex; pixelIndex < this.buf8.length; pixelIndex+=4){
-            this.setLsb(pixelIndex, [0,0,0]);
-        }
-		// var strr = "";
-		// for(var i=0; i<50; ++i)
-			// strr+= this.buf32[i].toString(2)+', ';
-		// console.log(strr);
+        this.setLsbZero(pixelIndex);
     };
 
     /*
@@ -79,7 +67,6 @@ function Manipulator(buffer, width, height){
             }
         }
         finalBinary = this.arrayToBinary(finalArray);
-		//console.log(this.convertBinaryToString(finalBinary));
         return this.convertBinaryToString(finalBinary);
     };
 
@@ -130,40 +117,83 @@ function Manipulator(buffer, width, height){
             // this.buf32[index] = (r << 24) | (g << 16) | (b << 8) | a;
          // }
     // };
-	//var times=0;
+    //var times=0;
     /* Sets the lsb of the pixel at the given index with the given array of bits */
     this.setLsb = function(index, bits){
         var i = 0;
         for(i; i < bits.length; i++){
             // for once I actually want == not ===
-			// if(times<=100) {
-			// 	times++;
-			// 	console.log(i + ' Setting: ' + bits[i]);
-			// 	if(bits[i] == 0){
-			// 		// clear bit, making it 0
-			// 		console.log('old: ' + this.buf8[index].toString(2));
-			// 		this.buf8[index] &= ~(1); // x = x & ~(1 << i*8) 
-			// 		console.log('new: ' + this.buf8[index].toString(2));
-			// 	} else {
-			// 		// or bit, making it a 1
-			// 		console.log('old: ' + this.buf8[index].toString(2));
-			// 		this.buf8[index] |= 1;
-			// 		console.log('new: ' + this.buf8[index].toString(2));
-			// 	}
-			// }
-			// else {
-				if(bits[i] == 0){
-					// clear bit, making it 0
-					this.buf8[index] &= ~(1); // x = x & ~(1 << i*8) 
-				} else {
-					// or bit, making it a 1
-					this.buf8[index] |= 1;
-				}
-			// }
-			index++;
+            // if(times<=100) {
+            //  times++;
+            //  console.log(i + ' Setting: ' + bits[i]);
+            //  if(bits[i] == 0){
+            //      // clear bit, making it 0
+            //      console.log('old: ' + this.buf8[index].toString(2));
+            //      this.buf8[index] &= ~(1); // x = x & ~(1 << i*8) 
+            //      console.log('new: ' + this.buf8[index].toString(2));
+            //  } else {
+            //      // or bit, making it a 1
+            //      console.log('old: ' + this.buf8[index].toString(2));
+            //      this.buf8[index] |= 1;
+            //      console.log('new: ' + this.buf8[index].toString(2));
+            //  }
+            // }
+            // else {
+                if(this.bit_test(this.buf8[index],2) == false){
+                    i--;
+                }
+                else{
+                    if(this.bit_test(this.buf8[index],3) == true){
+                        if(bits[i] == 0 ){
+                            // clear bit, making it 0
+                            this.buf8[index] &= ~(1); // x = x & ~(1 << i*8) 
+                        } else {
+                            // or bit, making it a 1
+                            this.buf8[index] |= 1;
+                        }
+                    }
+                    else{
+                        if(bits[i] == 0 ){
+                            // clear bit, making it 0
+                            this.buf8[index] = this.bit_clear(this.buf8[index],1);
+                        } else {
+                            // or bit, making it a 1
+                            this.buf8[index] = this.bit_set(this.buf8[index],1);
+                        }
+                    }
+                }
+            // }
+            index+=4;
         }
+        return index;
     };
 
+    this.setLsbZero = function(index){
+        for(var i=0; i<9; ++i){
+            if(this.bit_test(this.buf8[index],2) == false){
+                i--;
+            }
+            else{
+                if(this.bit_test(this.buf8[index],3) == true)
+                    this.buf8[index] = this.bit_clear(this.buf8[index],0);
+                else
+                    this.buf8[index] = this.bit_clear(this.buf8[index],1);
+            }
+            index+=4;
+        }
+    }
+
+    this.bit_test = function (num, bit){
+        return ((num>>bit) % 2 != 0)
+    }
+
+    this.bit_set = function(num, bit){
+        return num | 1<<bit;
+    }
+
+    this.bit_clear = function(num, bit){
+        return num & ~(1<<bit);
+    }
     /*
      gets the LSB of each of the 3 color channels.
      Returns an array of 3 1's or 0's representing the 3 LSBs
@@ -173,8 +203,8 @@ function Manipulator(buffer, width, height){
         // &'ing with 1 will return the LSB
         // red
         result.push((this.buf8[index]) & 1);
-		result.push((this.buf8[index+1]) & 1);
-		result.push((this.buf8[index+2]) & 1);
+        result.push((this.buf8[index+1]) & 1);
+        result.push((this.buf8[index+2]) & 1);
         // blue
         //result.push((this.buf32[index] >> 8) & 1);
         // green

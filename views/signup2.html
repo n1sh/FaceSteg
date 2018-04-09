@@ -1,6 +1,7 @@
-<div class="appName"><span ng-click="goHome();">FaceSteg</span> >> <span>SignUp</span></div>
+<div class="appName"><span ng-click="goHome();">FaceSteg</span> > <span>SignUp</span></div>
 <div class="outer">
-<table class="loginTable"">
+<image class="clickLogo" ng-click="clickImage()" src="resources/click.png"></image>
+<table class="loginTable">
 <tr>
 <td valign="top">
 <div class="webcam">
@@ -9,19 +10,28 @@
 							on-error="onError(err)" 
 							on-stream="onStream(stream)">
 				</webcam>
-				</br>
-				<input class="btn" ng-click="clickImage()" type="button" value="Click"></input>
+				</br>	
 </div>
 </td>
 <td valign="top">
 	<div class="clicked">
 		<canvas id="tempImage" width="320" height="240"></canvas>
-		<input class="btn" ng-click="takeSnapshot()" type="button" value="Select"></input>
-		<input class="btn" ng-click="clearAll()" type="button" value="Reset"></input>
 	</div>
+</td>
+<td valign="top">
+	<input class="btn" ng-click="takeSnapshot()" type="button" value="Select this image"></input>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<input class="btn" ng-click="clearAll()" type="button" value="Reset All image"></input>
 </td>
 </tr>
 </table>
+<br/>
+<br/>
 </div>
 <div>
 	<canvas id="snapshot1" width="320" height="240"></canvas>

@@ -22,7 +22,10 @@ angular.module("Stego", ["ui.router","webcam"])
             .state("home", {
                 url: "/home",
                 templateUrl: "views/homepage.html",
-                controller: "StegoController"
+                controller: "StegoController",
+                params: {
+                	signedIn: false
+                }
             })
             .state("welcome", {
                 url: "/welcome",
@@ -36,8 +39,14 @@ angular.module("Stego", ["ui.router","webcam"])
         $stateParams.counter =1;
         $scope.faceimgLogin = 0;
         $scope.availability= false;
+        $scope.signedIn = false;
         $scope.show = false;
         $scope.regimg = [];
+
+        if($state.current.name == 'home' && $stateParams.signedIn == false){
+        	alert('Please sign in again');
+        	$state.go('login');
+        }
         $scope.decode = function () {
             var file = document.getElementById("image-input").files[0];
             if(file){
@@ -94,7 +103,10 @@ angular.module("Stego", ["ui.router","webcam"])
         		alert('Please choose a different username');
         		return;
         	}
-        	var userdata = $scope.user + '@@' + $scope.pass + '@@' + $scope.age + '@@' + $scope.dob + '@@' + $scope.name ; 
+        	var modifiedDOB = $scope.dob.toISOString().substring(0, 10);
+        	console.log($scope.name);
+        	var userdata = $scope.user + '@@' + $scope.pass + '@@' + modifiedDOB + '@@' + $scope.name ; 
+        	console.log(userdata);
 			$state.go('signup2', { userdata: userdata});
 		}
 		var _video = null,
@@ -163,7 +175,6 @@ angular.module("Stego", ["ui.router","webcam"])
 		$scope.checkUsername = function(){
 			$scope.show = true;
 			$scope.checkUsernameCall();
-			console.log($scope.availability);
 		}
 
 		$scope.login = function() {
@@ -184,8 +195,8 @@ angular.module("Stego", ["ui.router","webcam"])
 	        })
 	        .success(function (response) {
 	            if(response == "valid"){
-	            	$state.go('home');
 	            	alert("Successfully signed in");
+	            	$state.go('home' , { signedIn : true});
 	            }
 	            else
 	            	alert("Invalid credentials");
@@ -201,7 +212,6 @@ angular.module("Stego", ["ui.router","webcam"])
 				$scope.show = false;
 				return;
 			}
-			console.log($scope.user);
 			var url = 'http://127.0.0.1:8081/FaceSteg/checkUsername';
 			$http({
             method: 'POST',
@@ -210,7 +220,6 @@ angular.module("Stego", ["ui.router","webcam"])
             data: $scope.user
 	        })
 	        .success(function (response) {
-	        	console.log(response);
 	            if(response == "yes"){
 	            	$scope.availability = true;
 	            	return true;
@@ -281,6 +290,16 @@ angular.module("Stego", ["ui.router","webcam"])
 			//if (!patCanvas) return;
 
 			var patCanvas2 = document.getElementById("tempImage");
+			var blank = document.createElement('canvas');
+			blank.width = patCanvas2.width;
+			blank.height = patCanvas2.height;
+
+			if(patCanvas2.toDataURL() == blank.toDataURL()){
+				alert('Please click image before selecting');
+				$stateParams.counter = index+1;
+				return;
+			}
+
 			//if (!patCanvas2) return;
 			var ctxPat2 = patCanvas2.getContext('2d');
 			var idata = ctxPat2.getImageData(0, 0, patCanvas2.width, patCanvas2.height);
